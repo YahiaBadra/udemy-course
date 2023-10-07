@@ -1,1 +1,13 @@
-<p>recipe-item works!</p>
+<div
+  class="card flex-row mt-3"
+  style="min-height: 100px; cursor: pointer"
+  (click)="onSelected()"
+>
+  <img [src]="recipe?.imagePath ?? ''" alt="" 
+  style="max-width: 150px;
+  max-height: 150px;" />
+  <div class="card-body">
+    <h4 class="list-group-item-heading">{{ recipe?.name ?? "" }}</h4>
+    <p class="list-group-item-text">{{ recipe?.description }}</p>
+  </div>
+</div>

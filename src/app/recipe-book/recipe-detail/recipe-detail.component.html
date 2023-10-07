@@ -1,43 +1,57 @@
-<div class="row">
-  <div class="col-md-12">
-    <h1>Delicious Pasta Carbonara</h1>
+<div class="row ml-3">
+  <div class="container">
+    <div class="col-xs-12">
+      <img
+        [src]="recipe?.imagePath"
+        alt="{{ recipe?.name }}"
+        class="img-responsive mt-5"
+        style="max-height: 400px; border-radius: 10px"
+      />
+    </div>
+    <div class="my-3">
+      <h1>{{ recipe?.name }}</h1>
+    </div>
+
+    <div class="col-xs-12">
+      <div class="nav nav-pills">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle bg-primary text-white"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            >Dropdown</a
+          >
+          <div class="dropdown-menu">
+            <li>
+              <a
+                (click)="onAddToShoppingList()"
+                routerLink="/shoppingList"
+                class="dropdown-item"
+                >To Shopping List</a
+              >
+            </li>
+            <li><a class="dropdown-item">Edit Recipe</a></li>
+            <li><a class="dropdown-item">Delete Recipe</a></li>
+          </div>
+        </li>
+      </div>
+
+      <div class="col-xs-12 my-3">
+        <p class="ml-3">
+          {{ recipe?.description }}
+        </p>
+      </div>
+      <div class="col-xs-12">
+        <ul class="list-group">
+          <li
+            class="list-group-item mt-2"
+            *ngFor="let ingredient of recipe?.ingredients"
+          >
+            {{ ingredient.name }}-{{ ingredient.amount }}
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-6">
-    <img src="pasta.jpg" alt="Pasta Carbonara" class="img-fluid" />
-  </div>
-  <div class="col-md-6">
-    <h2>Ingredients</h2>
-    <ul>
-      <li>200g spaghetti</li>
-      <li>100g pancetta or guanciale</li>
-      <li>2 large eggs</li>
-      <li>50g Pecorino Romano cheese</li>
-      <li>50g Parmesan cheese</li>
-      <li>2 cloves garlic, minced</li>
-      <li>Freshly ground black pepper</li>
-    </ul>
-
-    <h2>Instructions</h2>
-    <ol>
-      <li>Cook spaghetti in boiling salted water until al dente.</li>
-      <li>Fry the pancetta or guanciale until crispy.</li>
-      <li>
-        In a bowl, whisk together eggs, Pecorino Romano, Parmesan, minced
-        garlic, and black pepper.
-      </li>
-      <li>
-        Drain the cooked spaghetti and add it to the pan with the pancetta.
-      </li>
-      <li>Remove from heat and quickly stir in the egg mixture.</li>
-      <li>Serve immediately with extra cheese and black pepper on top.</li>
-    </ol>
-  </div>
-</div>
-
-<!-- <div class="row mt-4">
-  <div class="col-md-12">
-    <a href="recipe-list.html" class="btn btn-secondary">Back to Recipe List</a>
-  </div>
-</div> -->

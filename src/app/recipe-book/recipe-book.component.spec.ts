@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RecipeBookComponent } from './recipe-book.component';
+import RecipeBookComponent from './recipe-book.component';
 
 describe('RecipeBookComponent', () => {
   let component: RecipeBookComponent;
@@ -8,7 +8,7 @@ describe('RecipeBookComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [RecipeBookComponent]
+      declarations: [RecipeBookComponent],
     });
     fixture = TestBed.createComponent(RecipeBookComponent);
     component = fixture.componentInstance;

@@ -1,29 +1,12 @@
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12"><div class="btn btn-info">New Recipe</div></div>
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-success">New Recipe</button>
   </div>
-  <div class="row">
-    <div class="col-xs-12 mt-3">
-      <div
-        class="card mb-2"
-        style="width: 18rem"
-        *ngFor="let recipe of recipes"
-      >
-        <img
-          [src]="recipe.imagePath"
-          class="card-img-top"
-          style="height: 180px"
-          alt="{{ recipe.name }}"
-        />
-        <div class="card-body">
-          <h5 class="card-title">{{ recipe.name }}</h5>
-          <p class="card-text">
-            {{ recipe.description }}
-          </p>
-          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-        </div>
-      </div>
-      <app-recipe-item></app-recipe-item>
-    </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <app-recipe-item
+      *ngFor="let recipe of recipes"
+      [recipe]="recipe" ></app-recipe-item>
   </div>
 </div>
