@@ -15,22 +15,31 @@
 
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li routerLinkActive="active">
           <a
             class="nav-link"
             style="cursor: pointer"
-            (click)="onSelect('recipe')"
+            [routerLink]="'/recipes'"
             >Recipes</a
           >
         </li>
-        <li class="nav-item">
+        <li  routerLinkActive="active">
           <a
             class="nav-link"
             style="cursor: pointer"
-            (click)="onSelect('shoppingList')"
+            [routerLink]="'/shopping-list'"
             >Shopping List</a
           >
         </li>
+        <li  routerLinkActive="active">
+          <a
+            class="nav-link"
+            [routerLink]="'/auth'"
+            style="cursor: pointer"
+            >Authenticate</a
+          >
+        </li>
+        <!-- login -->
       </ul>
       <ul class="navbar-nav navbar-right">
         <li class="dropdown" appDropdown>
