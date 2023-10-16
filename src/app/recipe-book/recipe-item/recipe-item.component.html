@@ -1,6 +1,8 @@
 <div
-  class="card flex-row mt-3"
-  style="min-height: 100px; cursor: pointer"
+  routerLink={{recipe?.id}} 
+  style="min-height: 100px; cursor: pointer; "
+  routerLinkActive="active"
+class="card flex-row mt-3"
   (click)="onSelected()"
 >
   <img [src]="recipe?.imagePath ?? ''" alt="" 
@@ -8,6 +10,6 @@
   max-height: 150px;" />
   <div class="card-body">
     <h4 class="list-group-item-heading">{{ recipe?.name ?? "" }}</h4>
-    <p class="list-group-item-text">{{ recipe?.description }}</p>
+    <p class="list-group-item-text">{{ recipe?.description?.substring(0,100) }}</p>
   </div>
 </div>

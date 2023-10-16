@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipe-book.module';
 import { RecipebookService } from '../recipe-book.service';
 
@@ -8,13 +8,9 @@ import { RecipebookService } from '../recipe-book.service';
   styleUrls: ['./recipe-list.component.css'],
 })
 export class RecipeListComponent implements OnInit {
-
-  recipes?: Recipe[]  ;
-    constructor(private recipebookService:RecipebookService){
-
-    }
+  recipes?: Recipe[];
+  constructor(private recipebookService: RecipebookService) {}
   ngOnInit(): void {
-    this.recipes=this.recipebookService.getRecipes();
+    this.recipes = this.recipebookService.getRecipes();
   }
-  
 }

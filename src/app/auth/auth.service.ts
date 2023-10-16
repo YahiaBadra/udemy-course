@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, tap, throwError } from 'rxjs';
+import { Subject, catchError, tap, throwError } from 'rxjs';
+import { User } from './user.model';
 
 interface Response {
+  kind:string;
   idToken: string;
   email: string;
   refreshToken: string;
@@ -13,6 +15,8 @@ interface Response {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  user = new Subject<User>();
+
   constructor(private http: HttpClient) {}
 
   register(email: string, password: string) {
@@ -38,11 +42,28 @@ export class AuthService {
       )
       .pipe(
         catchError(this.handelError),
-        tap(() => {})
+        tap((resData) => {
+          this.handleAuthentication(
+            resData.email,
+            resData.localId,
+            resData.idToken,
+            +resData.expiresIn
+          );
+        })
       );
   }
+  private handleAuthentication(
+    email: string,
+    userId: string,
+    token: string,
+    expiresIn: number
+  ) {
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
 
-  handelError(errorRs: HttpErrorResponse) {
+    const user = new User(email, userId, token, expirationDate);
+    this.user.next(user);
+  }
+  private handelError(errorRs: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred!';
 
     console.log(errorRs.error.error.message);
