@@ -1,35 +1,38 @@
 <div class="row">
   <div class="col-12 my-3">
-    <form (submit)="onSubmit($event)">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
       <div class="form-group my-2">
         <input
           type="text"
           id="name"
-          class="form-control form-control-lg my-2"
           placeholder="Name"
-          #nameInput
+          class="form-control form-control-lg my-2"
+         name="name"
+         ngModel
+         required
         />
 
         <input
           type="number"
           id="amount"
-          class="form-control form-control-lg my-2"
           placeholder="Amount"
-          #amountInput
+          class="form-control form-control-lg my-2"
+          name="amount"
+          ngModel
+          required
+          pattern="^[1-9]+[0-9]*$"
         />
 
         <div class="btn-group" role="group">
           <button
             type="submit"
-            class="btn btn-success btn-lg mr-2"
-            (click)="onAddItem()"
-          >
-            Add
+            class="btn btn-success btn-lg mr-2" type="submit" [disabled]="!f.valid">
+            {{editMode ? 'update' : 'Add'}}
           </button>
-          <button type="button" class="btn btn-danger btn-lg mr-2">
+          <button type="button" class="btn btn-danger btn-lg mr-2" (click)="onDelete()">
             Delete
           </button>
-          <button type="button" class="btn btn-warning btn-lg mr-2">
+          <button type="button" class="btn btn-warning btn-lg mr-2" (click)="onClear()" *ngIf="editMode">
             Clear
           </button>
         </div>

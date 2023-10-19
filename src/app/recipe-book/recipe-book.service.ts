@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Recipe } from './recipe-book.module';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppinglistService } from '../shopping-list/shopping-list.service';
-import { Subject } from 'rxjs';
+// import { Subject } from 'rxjs';
 @Injectable()
 export class RecipebookService {
+  // recipeSelected=new Subject<Recipe>();
   private recipes: Recipe[] = [
     new Recipe(
       1,
