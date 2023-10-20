@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -16,19 +17,31 @@ import { Subscription } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
   private userSub?: Subscription;
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   @Output() featureSelected = new EventEmitter<string>();
 
   ngOnInit(): void {
-    this.userSub = this.authService.user.subscribe((user) => {
-      this.isAuthenticated = !!user;
-      console.log('IS AUTH: ', this.isAuthenticated);
+    // const user = JSON.parse(localStorage.getItem('userData')!);
+    // if (user) {
+    //   this.isAuthenticated = true;
+    // } else {
+    //   this.isAuthenticated = false;
+    // }
+    this.isAuthenticated = true;
+    this.userSub = this.authService.user.subscribe((response) => {
+      this.isAuthenticated = true;
     });
   }
   onSelect(feature: string) {
     console.log(feature);
     this.featureSelected.emit(feature);
+  }
+
+  onLogout() {
+    localStorage.removeItem('userData');
+    this.ngOnInit();
+    this.router.navigate(['auth']);
   }
 
   ngOnDestroy(): void {

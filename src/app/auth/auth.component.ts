@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService } from './auth.service';
+import { AuthService, Response } from './auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,13 +8,19 @@ import { Router } from '@angular/router';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css'],
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit {
   isLoginMode = true;
-  isAuth = false;
   isLoading = false;
   error: string | null = null;
 
   constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    const user = JSON.parse(localStorage.getItem('userData')!);
+    if (user) {
+      this.router.navigate(['recipes']);
+    }
+  }
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -27,27 +33,29 @@ export class AuthComponent {
       this.authService.register(email, password).subscribe(
         (response) => {
           this.router.navigate(['recipes']);
-          this.isAuth = true;
           this.isLoading = false;
         },
-        errorMessage => {
+        (errorMessage) => {
           console.log(errorMessage);
-          this.error=errorMessage;
+          this.error = errorMessage;
 
           this.isLoading = false;
         }
       );
     } else {
       this.authService.login(email, password).subscribe(
-        (response) => {
-          this.router.navigate(['recipes']);
-          this.isAuth = true;
+        (response: Response) => {
+          localStorage.setItem('userData', JSON.stringify(response));
+          const user = JSON.parse(localStorage.getItem('userData')!);
+          if (user) {
+            this.ngOnInit();
+          }
+
           this.isLoading = false;
         },
-        errorMessage => {
+        (errorMessage) => {
           console.log(errorMessage);
-          this.error=errorMessage;
-       
+          this.error = errorMessage;
 
           this.isLoading = false;
         }

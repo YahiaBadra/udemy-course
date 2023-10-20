@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
-    <a class="navbar-brand" *ngIf="isAuthenticated" [routerLink]="'recipes'">RecipeBook</a>
+    <a class="navbar-brand" *ngIf="isAuthenticated" [routerLink]="'recipes'"
+      >RecipeBook</a
+    >
     <button
       class="navbar-toggler"
       type="button"
@@ -15,15 +17,12 @@
 
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
-        <li routerLinkActive="active" *ngIf="isAuthenticated" >
-          <a
-            class="nav-link"
-            style="cursor: pointer"
-            [routerLink]="'/recipes'"
+        <li routerLinkActive="active" *ngIf="isAuthenticated">
+          <a class="nav-link" style="cursor: pointer" [routerLink]="'/recipes'"
             >Recipes</a
           >
         </li>
-        <li  routerLinkActive="active">
+        <li routerLinkActive="active" *ngIf="isAuthenticated">
           <a
             class="nav-link"
             style="cursor: pointer"
@@ -31,11 +30,8 @@
             >Shopping List</a
           >
         </li>
-        <li  routerLinkActive="active" *ngIf="!isAuthenticated">
-          <a
-            class="nav-link"
-            [routerLink]="'/auth'"
-            style="cursor: pointer"
+        <li routerLinkActive="active" *ngIf="!isAuthenticated">
+          <a class="nav-link" [routerLink]="'/auth'" style="cursor: pointer"
             >Authenticate</a
           >
         </li>
@@ -43,7 +39,7 @@
       </ul>
       <ul class="navbar-nav navbar-right">
         <li *ngIf="isAuthenticated">
-          <a style="cursor:pointer;">Logout</a>
+          <a style="cursor: pointer" (click)="onLogout()">Logout</a>
         </li>
         <!-- <li class="dropdown" appDropdown>
           <a style="cursor: pointer;" class="dropdown-toggle" role="button"

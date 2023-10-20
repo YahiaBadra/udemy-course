@@ -1,35 +1,66 @@
 <div class="container mt-3">
   <div class="row">
     <div class="col-12">
-      <form>
-        <div class="col-12">
-          <button type="submit" class="btn btn-success">Save</button>
-          <button type="button" class="btn btn-danger ml-2">Cancel</button>
-        </div>
-        <div class="form-group">
+      <form [formGroup]="recipeForm!" (ngSubmit)="onSubmit()">
+        <button type="submit" class="btn btn-success">Save</button>
+        <button type="button" class="btn btn-danger ml-2">Cancel</button>
+        <div class="form-group mt-2">
           <label for="name">Name</label>
-          <input type="text" id="name" class="form-control" />
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            class="form-control"
+          />
         </div>
         <div class="form-group">
           <label for="imagePath">Image URL</label>
-          <input type="text" id="imagePath" class="form-control" />
+          <input
+            type="text"
+            id="imagePath"
+            formControlName="imagePath"
+            class="form-control"
+          />
         </div>
         <div class="form-group">
           <label for="description">Description</label>
-          <textarea id="description" class="form-control" rows="6"></textarea>
+          <textarea
+            id="description"
+            formControlName="description"
+            class="form-control"
+            rows="6"
+          ></textarea>
         </div>
         <div class="row">
-          <div class="col-8">
-            <input type="text" class="form-control" />
-          </div>
-          <div class="col-2">
-            <input type="number" class="form-control" />
-          </div>
-          <div class="col-2">
-            <button class="btn btn-danger">X</button>
+          <div class="col-xs-12 ml-3" formArrayName="ingredients">
+            <div
+              class="row mt-2"
+              *ngFor="
+                let ingredientControl of arrOfControls?.controls;
+                let i = index
+              "
+              [formGroupName]="i"
+            >
+              <div class="col-7">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="name"
+                />
+              </div>
+              <div class="col-3">
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="amount"
+                />
+              </div>
+              <div class="col-2">
+                <button class="btn btn-danger">X</button>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="row mt-3"></div>
       </form>
     </div>
   </div>

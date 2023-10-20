@@ -32,7 +32,9 @@ const routes: Routes = [
       },
     ],
   },
+  { path: '', redirectTo: '/recipes', pathMatch: 'full' },
   { path: 'shopping-list', component: ShoppingListComponent },
+  { path: '**', redirectTo: 'recipes' },
 ];
 
 @NgModule({

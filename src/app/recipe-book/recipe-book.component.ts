@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // import { Recipe } from './recipe-book.module';
 import { RecipebookService } from './recipe-book.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-book',
@@ -9,12 +10,13 @@ import { RecipebookService } from './recipe-book.service';
   providers: [RecipebookService],
 })
 export default class RecipeBookComponent implements OnInit {
-  // selectedRecipe?: Recipe;
-  // constructor(private recipesBookService: RecipebookService) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    // this.recipesBookService.recipeSelected.subscribe((recipe: Recipe) => {
-    //   this.selectedRecipe = recipe;
-    // });
+    const userData = JSON.parse(localStorage.getItem('userData')!);
+    console.log('USER DATA', userData);
+    if (!userData) {
+      this.router.navigate(['auth']);
+    }
   }
 }
