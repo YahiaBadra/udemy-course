@@ -1,22 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipe-book.module';
-import { RecipebookService } from '../recipe-book.service';
+import { RecipeBookService } from '../recipe-book.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-list',
-  templateUrl: './recipe-list.component.html',
-  styleUrls: ['./recipe-list.component.css'],
+  templateUrl: './recipe-list.component.html',                      
 })
 export class RecipeListComponent implements OnInit {
   recipes?: Recipe[];
   constructor(
-    private recipebookService: RecipebookService,
+    private recipeBookService: RecipeBookService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    this.recipes = this.recipebookService.getRecipes();
+    this.recipeBookService.recipesChanged.subscribe((recipes: Recipe[]) => {
+      this.recipes = recipes;
+    });
+    this.recipes = this.recipeBookService.getRecipes();
   }
   onNewRecipe() {
     this.router.navigate(['new'], { relativeTo: this.route });

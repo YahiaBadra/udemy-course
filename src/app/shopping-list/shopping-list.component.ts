@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
-import { ShoppinglistService } from './shopping-list.service';
+import { ShoppingListService } from './shopping-list.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -14,7 +14,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   private igChangeSub?: Subscription;
 
   constructor(
-    private shoppingListService: ShoppinglistService,
+    private shoppingListService: ShoppingListService,
     private router: Router
   ) {}
 

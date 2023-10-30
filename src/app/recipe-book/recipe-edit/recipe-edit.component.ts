@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
-import { RecipebookService } from '../recipe-book.service';
+import { Component, Injector, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { RecipeBookService } from '../recipe-book.service';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -15,30 +15,63 @@ export class RecipeEditComponent implements OnInit {
   arrOfControls?: FormArray;
 
   constructor(
-    private router: ActivatedRoute,
-    private recipeService: RecipebookService
+    private route: ActivatedRoute,
+    private recipeService: RecipeBookService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.router.params.subscribe((params: Params) => {
+    this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
       this.editMode = params['id'] !== null;
       this.initForm();
+      this.arrOfControls = this.recipeForm?.get('ingredients') as FormArray;
     });
-    this.arrOfControls = this.recipeForm!.get('ingredients') as FormArray;
   }
-  onSubmit() {}
+  onSubmit() {
+    if (this.editMode) {
+      this.recipeService.updateRecipe(this.id!, this.recipeForm!.value);
+    } else {
+      this.recipeService.addRecipe(this.recipeForm!.value);
+    }
+    this.onCancel();
+  }
+
+  onAddIngredient() {
+    (<FormArray>this.recipeForm?.get('ingredients')).push(
+      new FormGroup({
+        name: new FormControl(null, Validators.required),
+        amount: new FormControl(null, [
+          Validators.required,
+          Validators.pattern(/^[1-9]+[0-9]*$/),
+        ]),
+      })
+    );
+  }
+
+  onCancel() {
+    this.router.navigate(['../'], { relativeTo: this.route });
+    this.recipeService.deleteRecipe(this.id!);
+  }
 
   private initForm() {
     let recipeName = '';
     let recipeImagePath = '';
     let recipeDescription = '';
-    let recipeIngredients = new FormArray<
-      FormGroup<{
-        name: FormControl<string | null>;
-        amount: FormControl<number | null>;
-      }>
-    >([]);
+    let recipeIngredients = new FormArray<any>([]);
+
+    this.recipeForm = new FormGroup({
+      name: new FormControl(recipeName, [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      imagePath: new FormControl(recipeImagePath, Validators.required),
+      description: new FormControl(recipeDescription, [
+        Validators.required,
+        Validators.minLength(10),
+      ]),
+      ingredients: recipeIngredients,
+    });
 
     if (this.editMode) {
       const recipe = this.recipeService.getRecipe(this.id!);
@@ -50,19 +83,27 @@ export class RecipeEditComponent implements OnInit {
         for (let ingredient of recipe!.ingredients) {
           recipeIngredients.push(
             new FormGroup({
-              name: new FormControl(ingredient.name),
-              amount: new FormControl(ingredient.amount),
+              name: new FormControl(ingredient.name, Validators.required),
+              amount: new FormControl(ingredient.amount, [
+                Validators.required,
+                Validators.pattern(/^[1-9]+[0-9]*$/),
+              ]),
             })
           );
         }
       }
+      this.recipeForm = new FormGroup({
+        name: new FormControl(recipeName, [
+          Validators.required,
+          Validators.minLength(3),
+        ]),
+        imagePath: new FormControl(recipeImagePath, Validators.required),
+        description: new FormControl(recipeDescription, [
+          Validators.required,
+          Validators.minLength(10),
+        ]),
+        ingredients: recipeIngredients,
+      });
     }
-
-    this.recipeForm = new FormGroup({
-      name: new FormControl(recipeName),
-      imagePath: new FormControl(recipeImagePath),
-      description: new FormControl(recipeDescription),
-      ingredients: recipeIngredients,
-    });
   }
 }

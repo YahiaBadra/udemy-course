@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Ingredient } from 'src/app/shared/ingredient.model';
-import { ShoppinglistService } from '../shopping-list.service';
+import { ShoppingListService } from '../shopping-list.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 @Component({
@@ -17,7 +17,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   // @ViewChild('nameInput') nameInputRef?: ElementRef;
   // @ViewChild('amountInput') amountInputRef?: ElementRef;
 
-  constructor(private shoppingListService: ShoppinglistService) {}
+  constructor(private shoppingListService: ShoppingListService) {}
 
   ngOnInit() {
     this.subscription = this.shoppingListService.startedEditing.subscribe(

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Recipe } from '../recipe-book.module';
-import { RecipebookService } from '../recipe-book.service';
+import { RecipeBookService } from '../recipe-book.service';
 @Component({
   selector: 'app-recipe-item',
   templateUrl: './recipe-item.component.html',
@@ -16,6 +16,6 @@ export class RecipeItemComponent implements OnInit {
   }
 
   onSelected() {
-    // this.recipebookService.recipeSelected.emit(this.recipe);
+    // this.recipeBookService.recipeSelected.emit(this.recipe);
   }
 }
