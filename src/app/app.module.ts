@@ -18,6 +18,7 @@ import { AuthComponent } from './auth/auth.component';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { RecipeStartComponent } from './recipe-book/recipe-start/recipe-start.component';
 import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.component';
+import { RecipeBookService } from './recipe-book/recipe-book.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.compo
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  providers: [ShoppingListService],
+  providers: [ShoppingListService, RecipeBookService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

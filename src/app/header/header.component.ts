@@ -34,7 +34,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
   onSelect(feature: string) {
-    console.log(feature);
     this.featureSelected.emit(feature);
   }
 
