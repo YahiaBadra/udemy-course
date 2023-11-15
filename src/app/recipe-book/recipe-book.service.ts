@@ -24,7 +24,7 @@ export class RecipeBookService {
       [new Ingredient('Buns', 16), new Ingredient('Meat', 1)]
     ),
     new Recipe(
-      0,
+      2,
       'Oman Pizza',
       'Pizza, dish of Italian origin consisting of a flattened disk of bread dough topped with some combination of olive oil, oregano, tomato, olives, mozzarella or other cheese, and many other ingredients.',
       'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8b21hbiUyMHBpenphfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',

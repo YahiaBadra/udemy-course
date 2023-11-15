@@ -50,7 +50,7 @@
             <div
               class="row mt-2"
               *ngFor="
-                let ingredientControl of recipeIngredientsControllers.controls;
+                let ingredientControl of getIngredientControls().controls;
                 let i = index
               "
               [formGroupName]="i"
@@ -60,7 +60,6 @@
                   type="text"
                   class="form-control"
                   formControlName="name"
-                  value="{{ ingredientControl.value.name }}"
                 />
               </div>
               <div class="col-3">
@@ -68,7 +67,6 @@
                   type="number"
                   class="form-control"
                   formControlName="amount"
-                  value="{{ ingredientControl.value.amount }}"
                 />
               </div>
               <div class="col-2">
@@ -83,17 +81,17 @@
               </div>
             </div>
             <hr />
-            <div class="row ml-2">
-              <div class="col-xs-12">
-                <button
-                  type="button"
-                  class="btn btn-success"
-                  (click)="onAddIngredient()"
-                >
-                  Add Ingredient
-                </button>
-              </div>
-            </div>
+          </div>
+        </div>
+        <div class="row ml-2">
+          <div class="col-xs-12">
+            <button
+              type="button"
+              class="btn btn-success"
+              (click)="onAddIngredient()"
+            >
+              Add Ingredient
+            </button>
           </div>
         </div>
       </form>
