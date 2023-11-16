@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RecipeBookService } from '../recipe-book.service';
 import { Ingredient } from 'src/app/shared/ingredient.model';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { Recipe } from '../recipe-book.module';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -34,21 +35,36 @@ export class RecipeEditComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
       this.editMode = this.id != null && !isNaN(this.id);
+
       this.initForm();
     });
   }
 
   onSubmit() {
     if (this.editMode) {
-      this.recipeService.updateRecipe(this.id!, this.recipeForm.value);
+      // this.recipeService.updateRecipe(this.id!, this.recipeForm.value);
+      this.dataStorageService
+        .updateRecipe(this.id!, this.recipeForm.value)
+        .subscribe((response) => {
+          console.log(response);
+        });
     } else {
-      this.recipeService.addRecipe({
-        ...this.recipeForm.value,
-        id: this.recipeService.getRecipes().length + 1,
+      this.dataStorageService.fetchRecipes().subscribe((response) => {
+        let lengthRecipe = 0;
+        if (response !== null) {
+          lengthRecipe = response.length;
+        }
+
+        this.dataStorageService
+          .addRecipe(lengthRecipe, {
+            ...this.recipeForm.value,
+            id: lengthRecipe,
+          })
+          .subscribe(() => {
+            this.onCancel();
+          });
       });
     }
-    this.onCancel();
-    this.dataStorageService.storeRecipes();
   }
 
   onAddIngredient() {

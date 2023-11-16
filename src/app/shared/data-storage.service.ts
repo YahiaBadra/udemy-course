@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { Recipe } from '../recipe-book/recipe-book.module';
 import { RecipeBookService } from '../recipe-book/recipe-book.service';
 
 @Injectable({
@@ -12,17 +14,35 @@ export class DataStorageService {
   ) {}
 
   // post
-  storeRecipes() {
-    const recipes = this.recipeService.getRecipes();
-    this.http
-      .put(
-        'https://recipes-d4c3d-default-rtdb.firebaseio.com/recipes.json',
-        recipes
-      )
-      .subscribe((response) => {
-        console.log(response);
-      });
+  addRecipe(recipeId: number, recipe: Recipe) {
+    const recipeWithId = { ...recipe, id: recipeId };
+
+    return this.http.put(
+      `https://recipes-d4c3d-default-rtdb.firebaseio.com/recipes/${recipeId}.json`,
+      recipeWithId
+    );
   }
+
   // get
-  fetchRecipes() {}
+  fetchRecipes() {
+    return this.http.get<Recipe[]>(
+      'https://recipes-d4c3d-default-rtdb.firebaseio.com/recipes.json'
+    );
+    // .pipe(
+    //   map((recipes) => {
+    //     return recipes.map((recipe) => {
+    //       return {
+    //         ...recipe,
+    //         ingredients: recipe.ingredients ? recipe.ingredients : [],
+    //       };
+    //     });
+    //   })
+    // );
+  }
+  updateRecipe(recipeId: number, recipe: Recipe) {
+    return this.http.put(
+      `https://recipes-d4c3d-default-rtdb.firebaseio.com/recipes.json${recipeId}`,
+      recipe
+    );
+  }
 }
