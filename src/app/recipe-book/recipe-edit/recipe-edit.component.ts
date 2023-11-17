@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { RecipeBookService } from '../recipe-book.service';
-import { Ingredient } from 'src/app/shared/ingredient.model';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { Ingredient } from 'src/app/shared/ingredient.model';
 import { Recipe } from '../recipe-book.module';
+import { RecipeBookService } from '../recipe-book.service';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -19,7 +19,6 @@ export class RecipeEditComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private recipeService: RecipeBookService,
     private router: Router,
     private dataStorageService: DataStorageService
   ) {
@@ -42,11 +41,10 @@ export class RecipeEditComponent implements OnInit {
 
   onSubmit() {
     if (this.editMode) {
-      // this.recipeService.updateRecipe(this.id!, this.recipeForm.value);
       this.dataStorageService
         .updateRecipe(this.id!, this.recipeForm.value)
-        .subscribe((response) => {
-          console.log(response);
+        .subscribe(() => {
+          this.onCancel();
         });
     } else {
       this.dataStorageService.fetchRecipes().subscribe((response) => {
@@ -91,32 +89,49 @@ export class RecipeEditComponent implements OnInit {
     let recipeName = '';
     let recipeImagePath = '';
     let recipeDescription = '';
+    let ingredients: Ingredient[] = [];
 
     if (this.editMode) {
-      const recipe = this.recipeService.getRecipe(this.id!);
-      recipeName = recipe!.name;
-      recipeImagePath = recipe!.imagePath;
-      recipeDescription = recipe!.description;
-      if (recipe!['ingredients']) {
-        for (let ingredient of recipe!.ingredients) {
-          this.recipeIngredients.push(
-            new FormGroup({
-              name: new FormControl(ingredient.name, Validators.required),
-              amount: new FormControl(ingredient.amount, [
-                Validators.required,
-                Validators.pattern(/^[1-9]+[0-9]*$/),
-              ]),
-            })
-          );
-        }
-      }
+      this.dataStorageService
+        .getRecipe(this.id!)
+        .subscribe((recipe: Recipe) => {
+          recipeName = recipe!.name;
+          recipeImagePath = recipe!.imagePath;
+          recipeDescription = recipe!.description;
+          ingredients = recipe.ingredients;
+
+          if (ingredients) {
+            for (let ingredient of ingredients) {
+              this.recipeIngredients.push(
+                new FormGroup({
+                  name: new FormControl(ingredient.name, Validators.required),
+                  amount: new FormControl(ingredient.amount, [
+                    Validators.required,
+                    Validators.pattern(/^[1-9]+[0-9]*$/),
+                  ]),
+                })
+              );
+            }
+          }
+
+          this.recipeForm = new FormGroup({
+            name: new FormControl(recipeName, Validators.required),
+            imagePath: new FormControl(recipeImagePath, Validators.required),
+            description: new FormControl(
+              recipeDescription,
+              Validators.required
+            ),
+            ingredients: this.recipeIngredients,
+          });
+        });
+    } else {
+      this.recipeForm = new FormGroup({
+        name: new FormControl(recipeName, Validators.required),
+        imagePath: new FormControl(recipeImagePath, Validators.required),
+        description: new FormControl(recipeDescription, Validators.required),
+        ingredients: this.recipeIngredients,
+      });
     }
-    this.recipeForm = new FormGroup({
-      name: new FormControl(recipeName, Validators.required),
-      imagePath: new FormControl(recipeImagePath, Validators.required),
-      description: new FormControl(recipeDescription, Validators.required),
-      ingredients: this.recipeIngredients,
-    });
   }
 
   getIngredientControls(): FormArray {

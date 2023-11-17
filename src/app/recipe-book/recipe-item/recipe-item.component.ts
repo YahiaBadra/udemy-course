@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Recipe } from '../recipe-book.module';
-import { RecipeBookService } from '../recipe-book.service';
 @Component({
   selector: 'app-recipe-item',
   templateUrl: './recipe-item.component.html',
