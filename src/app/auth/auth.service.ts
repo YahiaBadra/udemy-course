@@ -63,6 +63,7 @@ export class AuthService {
     const user = new User(email, userId, token, expirationDate);
 
     this.user.next(user);
+    localStorage.setItem('userData', JSON.stringify(user));
   }
   private handelError(errorRs: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred!';
@@ -89,8 +90,3 @@ export class AuthService {
     return throwError(errorMessage);
   }
 }
-// function Tap(
-//   arg0: () => void
-// ): import('rxjs').OperatorFunction<Response, unknown> {
-//   throw new Error('Function not implemented.');
-// }

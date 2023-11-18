@@ -41,6 +41,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     localStorage.removeItem('userData');
     this.ngOnInit();
     this.router.navigate(['auth']);
+    this.authService.user.next(null!);
   }
 
   ngOnDestroy(): void {
