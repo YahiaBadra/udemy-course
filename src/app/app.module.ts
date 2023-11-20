@@ -19,6 +19,8 @@ import { LoadingComponent } from './shared/loading/loading.component';
 import { RecipeStartComponent } from './recipe-book/recipe-start/recipe-start.component';
 import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.component';
 import { RecipeBookService } from './recipe-book/recipe-book.service';
+import { AlertComponent } from './shared/alert/alert.component';
+import { PlaceholderDirective } from './shared/placeholder/placeholder.directive';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,9 @@ import { RecipeBookService } from './recipe-book/recipe-book.service';
     LoadingComponent,
     RecipeStartComponent,
     RecipeEditComponent,
+    AlertComponent,
+    PlaceholderDirective,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
