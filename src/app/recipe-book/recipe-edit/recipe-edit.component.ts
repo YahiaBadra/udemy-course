@@ -4,7 +4,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { Ingredient } from 'src/app/shared/ingredient.model';
 import { Recipe } from '../recipe-book.module';
-import { RecipeBookService } from '../recipe-book.service';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -89,7 +88,7 @@ export class RecipeEditComponent implements OnInit {
     let recipeName = '';
     let recipeImagePath = '';
     let recipeDescription = '';
-    let ingredients: Ingredient[] = [];
+    let ingredients: Ingredient[] | null = [];
 
     if (this.editMode) {
       this.dataStorageService

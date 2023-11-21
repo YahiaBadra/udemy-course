@@ -1,26 +1,26 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import RecipeBookComponent from './recipe-book/recipe-book.component';
-import { RecipeDetailComponent } from './recipe-book/recipe-detail/recipe-detail.component';
-import { RecipeListComponent } from './recipe-book/recipe-list/recipe-list.component';
-import { RecipeItemComponent } from './recipe-book/recipe-item/recipe-item.component';
-import { DropdownDirective } from './shared/dropdown.directive';
-import { ShoppingListService } from './shopping-list/shopping-list.service';
-import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { AuthComponent } from './auth/auth.component';
-import { LoadingComponent } from './shared/loading/loading.component';
-import { RecipeStartComponent } from './recipe-book/recipe-start/recipe-start.component';
-import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.component';
+import { HeaderComponent } from './header/header.component';
+import RecipeBookComponent from './recipe-book/recipe-book.component';
 import { RecipeBookService } from './recipe-book/recipe-book.service';
+import { RecipeDetailComponent } from './recipe-book/recipe-detail/recipe-detail.component';
+import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.component';
+import { RecipeItemComponent } from './recipe-book/recipe-item/recipe-item.component';
+import { RecipeListComponent } from './recipe-book/recipe-list/recipe-list.component';
+import { RecipeStartComponent } from './recipe-book/recipe-start/recipe-start.component';
 import { AlertComponent } from './shared/alert/alert.component';
+import { DropdownDirective } from './shared/dropdown.directive';
+import { LoadingComponent } from './shared/loading/loading.component';
 import { PlaceholderDirective } from './shared/placeholder/placeholder.directive';
+import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
+import { ShoppingListComponent } from './shopping-list/shopping-list.component';
+import { ShoppingListService } from './shopping-list/shopping-list.service';
 
 @NgModule({
   declarations: [
@@ -50,5 +50,6 @@ import { PlaceholderDirective } from './shared/placeholder/placeholder.directive
   ],
   providers: [ShoppingListService, RecipeBookService],
   bootstrap: [AppComponent],
+  
 })
 export class AppModule {}

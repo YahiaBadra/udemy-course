@@ -10,8 +10,8 @@ import { DataStorageService } from '../shared/data-storage.service';
 export class RecipeBookService {
   recipesChanged = new Subject<Recipe[]>();
   private recipes: Recipe[] = [];
- 
-  constructor(private slService: ShoppingListService ){}
+
+  constructor(private slService: ShoppingListService) {}
   // setRecipes(recipes: Recipe[]) {
   //   this.recipes = recipes;
   //   this.recipesChanged.next(this.recipes.slice());

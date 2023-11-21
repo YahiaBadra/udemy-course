@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipe-book.module';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 
 @Component({
@@ -18,22 +17,10 @@ export class RecipeListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.recipeService
-      .fetchRecipes()
-      .pipe(
-        map((recipes: Recipe[] | undefined) => {
-          if (!Array.isArray(recipes)) {
-            return []; // Return an empty array if recipes is not an array
-          }
-          return recipes.map((recipe) => ({
-            ...recipe,
-            ingredients: recipe.ingredients ? recipe.ingredients : [],
-          }));
-        })
-      )
-      .subscribe((response: Recipe[]) => {
-        this.recipes = response;
-      });
+    this.recipeService.fetchRecipes().subscribe((response) => {
+      this.recipes = response;
+      console.log(this.recipes);
+    });
   }
 
   onNewRecipe() {

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { filter, map } from 'rxjs/operators';
 import { Recipe } from '../recipe-book/recipe-book.module';
 import { RecipeBookService } from '../recipe-book/recipe-book.service';
 
