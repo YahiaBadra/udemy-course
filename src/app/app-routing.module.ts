@@ -1,14 +1,20 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthComponent } from './auth/auth.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import RecipeBookComponent from './recipe-book/recipe-book.component';
-import { RecipeStartComponent } from './recipe-book/recipe-start/recipe-start.component';
 import { RecipeDetailComponent } from './recipe-book/recipe-detail/recipe-detail.component';
 import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.component';
+import { RecipeStartComponent } from './recipe-book/recipe-start/recipe-start.component';
 
 const routes: Routes = [
-  { path: 'auth', component: AuthComponent },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
+  // {
+  //   path: 'auth',
+  //   component: AuthComponent,
+  // },
+
   {
     path: 'recipes',
     component: RecipeBookComponent,
@@ -33,7 +39,15 @@ const routes: Routes = [
     ],
   },
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
-  { path: 'shopping-list', component: ShoppingListComponent },
+  // { path: 'shopping-list', component: ShoppingListComponent },
+  {
+    path: 'shopping-list',
+    loadChildren: () =>
+      import('./shopping-list/shopping-list.module').then(
+        (m) => m.ShoppingListModule
+      ),
+  },
+
   { path: '**', redirectTo: 'recipes' },
 ];
 
