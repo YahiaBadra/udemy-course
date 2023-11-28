@@ -1,7 +1,6 @@
 import {
   Component,
   ComponentFactoryResolver,
-  ComponentRef,
   OnDestroy,
   OnInit,
   ViewChild,
