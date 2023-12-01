@@ -10,6 +10,7 @@ import { RecipeBookService } from './recipe-book/recipe-book.service';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { RecipesModule } from './recipe-book/recipes.module';
 import { SharedModule } from './shared/shared.module';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -20,6 +21,7 @@ import { SharedModule } from './shared/shared.module';
     ReactiveFormsModule,
     RecipesModule,
     SharedModule,
+    StoreModule.forRoot({}, {}),
   ],
   providers: [ShoppingListService, RecipeBookService],
   bootstrap: [AppComponent],
